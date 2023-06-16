@@ -17,6 +17,7 @@ public class ExaminerServiceImpl implements ExaminerService {
 
     private final QuestionService javaQuestionService;
     private final QuestionService mathQuestionService;
+    private final Random random = new Random();
 
     public ExaminerServiceImpl(@Qualifier("javaQuestionServiceImpl") QuestionService javaQuestionService,
                                @Qualifier("mathQuestionServiceImpl") QuestionService mathQuestionService) {
@@ -36,7 +37,6 @@ public class ExaminerServiceImpl implements ExaminerService {
             return result;
         }
         Set<Question> questions = new HashSet<>();
-        Random random = new Random();
         while (questions.size() < amount){
             if (random.nextDouble() < 0.5){
                 if (!javaQuestionService.getAll().isEmpty()) {

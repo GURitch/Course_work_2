@@ -13,6 +13,8 @@ public class MathQuestionServiceImpl implements QuestionService {
 
     private final QuestionRepository mathQuestions;
 
+    private final Random random = new Random();
+
     public MathQuestionServiceImpl(@Qualifier("mathQuestionRepositoryImpl") QuestionRepository javaQuestions) {
         this.mathQuestions = javaQuestions;
     }
@@ -47,7 +49,7 @@ public class MathQuestionServiceImpl implements QuestionService {
 
 //        return questions.stream().skip(new Random().nextInt(questions.size())).findFirst().orElse(null);
 
-        int item = new Random().nextInt(mathQuestions.getAll().size());
+        int item = random.nextInt(mathQuestions.getAll().size());
         int i = 0;
         for (Question question : mathQuestions.getAll()) {
             if(i == item){

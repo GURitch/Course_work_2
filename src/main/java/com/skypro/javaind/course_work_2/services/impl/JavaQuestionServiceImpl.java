@@ -12,6 +12,7 @@ import java.util.*;
 public class JavaQuestionServiceImpl implements QuestionService {
 
     private final QuestionRepository javaQuestions;
+    private final Random random = new Random();
 
     public JavaQuestionServiceImpl(@Qualifier("javaQuestionRepositoryImpl") QuestionRepository javaQuestions) {
         this.javaQuestions = javaQuestions;
@@ -47,7 +48,7 @@ public class JavaQuestionServiceImpl implements QuestionService {
 
 //        return questions.stream().skip(new Random().nextInt(questions.size())).findFirst().orElse(null);
 
-        int item = new Random().nextInt(javaQuestions.getAll().size());
+        int item = random.nextInt(javaQuestions.getAll().size());
         int i = 0;
         for (Question question : javaQuestions.getAll()) {
             if(i == item){
