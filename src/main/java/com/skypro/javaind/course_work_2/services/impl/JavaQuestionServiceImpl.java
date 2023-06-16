@@ -1,40 +1,45 @@
-package com.skypro.javaind.course_work_2.services;
+package com.skypro.javaind.course_work_2.services.impl;
 
 import com.skypro.javaind.course_work_2.model.Question;
+import com.skypro.javaind.course_work_2.repositories.QuestionRepository;
+import com.skypro.javaind.course_work_2.services.QuestionService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
-public class JavaQuestionService implements QuestionService {
-    private final Set<Question> questions;
+public class JavaQuestionServiceImpl implements QuestionService {
 
-    public JavaQuestionService() {
-        this.questions = new HashSet<>();
+    private final QuestionRepository javaQuestions;
+
+    public JavaQuestionServiceImpl(@Qualifier("javaQuestionRepositoryImpl") QuestionRepository javaQuestions) {
+        this.javaQuestions = javaQuestions;
     }
+
 
     @Override
     public Question add(String question, String answer) {
         Question question1 = new Question(question,answer);
-        questions.add(question1);
+        javaQuestions.add(question1);
         return question1;
     }
 
     @Override
     public Question add(Question question) {
-        questions.add(question);
+        javaQuestions.add(question);
         return question;
     }
 
     @Override
     public Question remove(Question question) {
-        questions.remove(question);
+        javaQuestions.remove(question);
         return question;
     }
 
     @Override
     public Collection<Question> getAll() {
-        return Collections.unmodifiableSet(questions);
+        return javaQuestions.getAll();
     }
 
     @Override
@@ -42,9 +47,9 @@ public class JavaQuestionService implements QuestionService {
 
 //        return questions.stream().skip(new Random().nextInt(questions.size())).findFirst().orElse(null);
 
-        int item = new Random().nextInt(questions.size());
+        int item = new Random().nextInt(javaQuestions.getAll().size());
         int i = 0;
-        for (Question question : questions) {
+        for (Question question : javaQuestions.getAll()) {
             if(i == item){
                 return question;
             }

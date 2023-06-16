@@ -15,24 +15,24 @@ import java.util.Collection;
 public class JavaQuestionController {
     private final QuestionService questionService;
 
-    public JavaQuestionController(@Qualifier("javaQuestionService")QuestionService questionService) {
+    public JavaQuestionController(@Qualifier("javaQuestionServiceImpl")QuestionService questionService) {
         this.questionService = questionService;
     }
 
     @GetMapping("/add")
-    public Question addQuestion(@RequestParam("QuestionText") String questionText,
-                                @RequestParam("QuestionAnswer") String questionAnswer) {
+    public Question addQuestion(@RequestParam String questionText,
+                                @RequestParam String questionAnswer) {
         return questionService.add(questionText, questionAnswer);
+    }
+
+    @GetMapping("/remove")
+    public Question removeQuestion(@RequestParam String questionText,
+                                   @RequestParam String questionAnswer) {
+        return questionService.remove(new Question(questionText,questionAnswer));
     }
 
     @GetMapping()
     public Collection<Question> getQuestions(){
         return questionService.getAll();
-    }
-
-    @GetMapping("/remove")
-    public Question removeQuestion(@RequestParam("QuestionText") String questionText,
-                                @RequestParam("QuestionAnswer") String questionAnswer) {
-        return questionService.remove(new Question(questionText,questionAnswer));
     }
 }
